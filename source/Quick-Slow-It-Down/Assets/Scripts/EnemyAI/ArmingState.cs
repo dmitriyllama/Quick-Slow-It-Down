@@ -1,4 +1,7 @@
-﻿namespace EnemyAI
+﻿using System;
+using UnityEngine;
+
+namespace EnemyAI
 {
     public class ArmingState : BaseState
     {
@@ -19,10 +22,25 @@
             {
                 enemy.Rotate();
             }
+            else
+            {
+                var gunTransform = enemy.assignedGun.transform;
+                var position = enemy.transform.position;
+                if ((gunTransform.position - position).sqrMagnitude > 9)
+                {
+                    enemy.MoveToward(gunTransform);
+                }
+                else
+                {
+                    // Close enough to the gun!
+                    enemy.ChangeState(EnemyAI.State.Shooting);
+                }
+            }
         }
 
         public override void Exit()
         {
+            enemy.PickupGun();
         }
     }
 }

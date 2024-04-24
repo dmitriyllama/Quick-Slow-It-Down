@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SceneScripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,7 +29,7 @@ namespace EnemyAI
         [SerializeField] public bool active;
         
         [SerializeField] private float speed = 4.0f;
-        [SerializeField] private float rotationSpeed = 200.0f;
+        [SerializeField] private float rotationSpeed = 300.0f;
         public bool rotating;
         private float rotationTarget;
         private float deltaRotationTarget;
@@ -56,6 +55,7 @@ namespace EnemyAI
 
         void Awake()
         {
+            alive = true;
             stateDictionary = new Dictionary<State, BaseState>
             {
                 { State.Idle, new IdleState(this) },
@@ -68,7 +68,6 @@ namespace EnemyAI
 
         void Start()
         {
-            alive = true;
             visor = transform.GetChild(0);
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             levelController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
@@ -85,23 +84,33 @@ namespace EnemyAI
             }
         }
 
+        public void MoveToward(Transform targetTransform)
+        {
+            // TODO Pathfinding
+            // I assume the enemy will never have to avoid obstacles
+            transform.Translate(0, 0, speed * Time.fixedDeltaTime);
+        }
+
         public void SetRotationTarget(Transform targetTransform)
         {
             rotating = true;
-            rotationTarget = Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles.z;
+            rotationTarget = Quaternion.LookRotation(transform.position - targetTransform.position).eulerAngles.y;
+            if (rotationTarget > 180)
+            {
+                rotationTarget -= 360;
+            }
             deltaRotationTarget = Mathf.Sign(rotationTarget) * rotationSpeed;
         }
         
         public void Rotate()
         {
-            transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
-        
             float savedRotationTarget = rotationTarget;
             rotationTarget -= deltaRotationTarget * Time.fixedDeltaTime;
             if (Math.Abs(Mathf.Sign(savedRotationTarget) - Mathf.Sign(rotationTarget)) > 0.2)
             {
                 rotating = false;
             }
+            transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
         }
 
         public void PickupGun()
