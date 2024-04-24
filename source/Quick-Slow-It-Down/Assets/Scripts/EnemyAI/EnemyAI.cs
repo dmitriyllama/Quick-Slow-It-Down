@@ -21,7 +21,6 @@ namespace EnemyAI
             Idle,
             Arming,
             Shooting,
-            Searching,
             Confused
         }
         
@@ -163,10 +162,13 @@ namespace EnemyAI
 
         private IEnumerator Die()
         {
-            alive = false;
-            transform.Rotate(-75, 0, 0);
-            yield return new WaitForSeconds(1.5f);
-            Destroy(gameObject);
+            if (alive)
+            {
+                alive = false;
+                transform.Rotate(-75, 0, 0);
+                yield return new WaitForSeconds(1.5f);
+                Destroy(gameObject);
+            }
         }
     }
 }

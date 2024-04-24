@@ -1,11 +1,12 @@
-﻿using SceneScripts;
+﻿using Controls;
+using SceneScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerTarget : MonoBehaviour
 {
     public bool alive { get; private set; }
-    
+
     private Level level;
     private UnityEvent deathEvent;
     
@@ -19,7 +20,12 @@ public class PlayerTarget : MonoBehaviour
 
     public void ReactToHit()
     {
-        alive = false;
-        deathEvent.Invoke();
+        if (alive)
+        {
+            alive = false;
+            transform.Rotate(-75, 0, 0);
+            GetComponent<FPSInput>().enabled = false;
+            deathEvent.Invoke();
+        }
     }
 }
