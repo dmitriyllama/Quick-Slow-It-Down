@@ -44,33 +44,34 @@ namespace SceneScripts
         private IEnumerator StartTutorial()
         {
             label = "Don't move!";
-            yield return new WaitForSecondsRealtime(4.2f);
+            yield return new WaitForSeconds(4.2f);
             guiStyle.fontSize = 24;
             label = "Don't do anything, or you get shot.";
-            yield return new WaitForSecondsRealtime(3.7f);
+            yield return new WaitForSeconds(3.7f);
             label = "And don't panic, this is a test.";
-            yield return new WaitForSecondsRealtime(3.7f);
+            yield return new WaitForSeconds(3.7f);
             label = "Now listen. You have to follow the one rule of this bizarre game.";
-            yield return new WaitForSecondsRealtime(4.2f);
+            yield return new WaitForSeconds(4.2f);
             label = "In front of you is a ball of shining rock, which we'll have to call the \"time orb\".";
-            yield return new WaitForSecondsRealtime(4f);
+            yield return new WaitForSeconds(4f);
             label = "A time orb will slow down everything around you if you push on it.";
-            yield return new WaitForSecondsRealtime(6.2f);
+            yield return new WaitForSeconds(6.2f);
             label = "Also, there's a gun. It should un-alive the other guy if you use it wisely.";
-            yield return new WaitForSecondsRealtime(4.2f);
+            yield return new WaitForSeconds(4.2f);
             label = "The rule here is simple. You're doomed if you try to reach the gun first.";
-            yield return new WaitForSecondsRealtime(4.7f);
+            yield return new WaitForSeconds(4.7f);
             label = "You might have to use the time orb instead.";
-            yield return new WaitForSecondsRealtime(4.7f);
+            yield return new WaitForSeconds(4.7f);
             label = "Focus now. You have to be quick.";
             readThroughEnoughTutorial = true;
-            yield return new WaitForSecondsRealtime(3.2f);
+            yield return new WaitForSeconds(3.2f);
             label = "Grab an item [E]\nSlow it all down [Right Click]\nShoot the guy! [Left Click]";
-            yield return new WaitForSecondsRealtime(10f);
+            yield return new WaitForSeconds(10f);
         }
 
         private IEnumerator ActivateEnemy()
         {
+            inAction = true;
             var enemyTransform = enemy.transform;
             yield return new WaitForSeconds(0.2f);
         
@@ -78,16 +79,13 @@ namespace SceneScripts
             
             yield return new WaitForSeconds(0.3f);
 
-            while (true)
-            {
-                enemy.Shoot();
-                yield return new WaitForSeconds(0.25f);
-            }
+            enemy.ForceChangeState(EnemyAI.EnemyAI.State.Shooting);
         }
 
         private IEnumerator ResetTutorial()
         {
-            yield return new WaitForSecondsRealtime(1.7f);
+            inAction = false;
+            yield return new WaitForSeconds(1.7f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -96,7 +94,7 @@ namespace SceneScripts
             yield return new WaitForSecondsRealtime(3.2f);
             if (readThroughEnoughTutorial)
             {
-                label = "There you go, bastard!";
+                label = "There you go!";
                 yield return new WaitForSecondsRealtime(3.2f);
             }
             else
