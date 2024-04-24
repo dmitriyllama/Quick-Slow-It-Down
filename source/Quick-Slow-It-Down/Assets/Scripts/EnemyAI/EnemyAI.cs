@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SceneScripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace EnemyAI
 {
@@ -13,7 +13,7 @@ namespace EnemyAI
         public bool alive { get; private set; }
         
         private Transform visor;
-        public Transform playerTransform { get; private set; }
+        public PlayerTarget player { get; private set; }
         [SerializeField] public Gun assignedGun;
 
         public enum State
@@ -21,7 +21,6 @@ namespace EnemyAI
             Idle,
             Arming,
             Shooting,
-            Searching,
             Confused
         }
         
@@ -30,7 +29,7 @@ namespace EnemyAI
         [SerializeField] public bool active;
         
         [SerializeField] private float speed = 4.0f;
-        [SerializeField] private float rotationSpeed = 200.0f;
+        [SerializeField] private float rotationSpeed = 300.0f;
         public bool rotating;
         private float rotationTarget;
         private float deltaRotationTarget;
@@ -53,24 +52,38 @@ namespace EnemyAI
             }
         }
         
+        public void ForceChangeState(State newState)
+        {
+            if (!alive) return;
+            if (stateDictionary.ContainsKey(state))
+            {
+                stateDictionary[state].Exit();
+            }
+            
+            state = newState;
+            if (stateDictionary.ContainsKey(newState))
+            {
+                stateDictionary[newState].Enter();
+            }
+        }
+        
 
         void Awake()
         {
+            alive = true;
             stateDictionary = new Dictionary<State, BaseState>
             {
                 { State.Idle, new IdleState(this) },
                 { State.Arming, new ArmingState(this) },
-                { State.Shooting, new ShootingState(this) }
-                // , { State.Searching, new SearchingState(this) },
-                // { State.Confused, new ConfusedState(this) }
+                { State.Shooting, new ShootingState(this) },
+                { State.Confused, new ConfusedState(this) }
             };
         }
 
         void Start()
         {
-            alive = true;
             visor = transform.GetChild(0);
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTarget>();
             levelController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
             
             deathEvent = new UnityEvent();
@@ -85,22 +98,36 @@ namespace EnemyAI
             }
         }
 
+        public void MoveForward()
+        {
+            // TODO Pathfinding
+            // I assume the enemy will never have to avoid obstacles
+            transform.Translate(0, 0, speed * Time.fixedDeltaTime);
+        }
+
         public void SetRotationTarget(Transform targetTransform)
         {
             rotating = true;
-            rotationTarget = Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles.z;
+            rotationTarget = Quaternion.LookRotation(transform.position - targetTransform.position).eulerAngles.y;
+            if (rotationTarget > 180)
+            {
+                rotationTarget -= 360;
+            }
             deltaRotationTarget = Mathf.Sign(rotationTarget) * rotationSpeed;
         }
         
         public void Rotate()
         {
-            transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
-        
             float savedRotationTarget = rotationTarget;
             rotationTarget -= deltaRotationTarget * Time.fixedDeltaTime;
-            if (Math.Abs(Mathf.Sign(savedRotationTarget) - Mathf.Sign(rotationTarget)) > 0.2)
+            if (Math.Abs(Mathf.Sign(savedRotationTarget) + Mathf.Sign(rotationTarget)) < 0.1)
             {
                 rotating = false;
+                transform.Rotate(0, savedRotationTarget, 0);
+            }
+            else
+            {
+                transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
             }
         }
 
@@ -110,9 +137,21 @@ namespace EnemyAI
             assignedGun.Pickup(hand);
         }
 
+        public void Aim(Transform targetTransform)
+        {
+            transform.LookAt(targetTransform);
+        }
+        
         public void Shoot()
         {
             assignedGun.Shoot(new Ray(visor.position, transform.forward));
+        }
+
+        public void LookRandomly()
+        {
+            rotating = true;
+            rotationTarget = Random.Range(-70, 70);
+            deltaRotationTarget = Mathf.Sign(rotationTarget) * rotationSpeed;
         }
 
         public void ReactToHit()
@@ -123,10 +162,13 @@ namespace EnemyAI
 
         private IEnumerator Die()
         {
-            alive = false;
-            transform.Rotate(-75, 0, 0);
-            yield return new WaitForSeconds(1.5f);
-            Destroy(gameObject);
+            if (alive)
+            {
+                alive = false;
+                transform.Rotate(-75, 0, 0);
+                yield return new WaitForSeconds(1.5f);
+                Destroy(gameObject);
+            }
         }
     }
 }

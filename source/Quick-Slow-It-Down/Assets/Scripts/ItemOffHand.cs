@@ -12,8 +12,8 @@ public class ItemOffHand : MonoBehaviour
 
     public void Pickup(Transform hand)
     {
-        transform.SetParent(hand);
         inHand = true;
+        transform.SetParent(hand);
         rb.isKinematic = true;
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = Vector3.zero;
