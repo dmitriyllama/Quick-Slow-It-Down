@@ -91,19 +91,19 @@ namespace SceneScripts
 
         private IEnumerator EndTutorial()
         {
-            yield return new WaitForSecondsRealtime(3.2f);
+            yield return new WaitForSeconds(3.2f);
             if (readThroughEnoughTutorial)
             {
                 label = "There you go!";
-                yield return new WaitForSecondsRealtime(3.2f);
+                yield return new WaitForSeconds(3.2f);
             }
             else
             {
                 guiStyle.fontSize = 24;
                 label = "Woah";
-                yield return new WaitForSecondsRealtime(2.2f);
+                yield return new WaitForSeconds(2.2f);
                 label = "Quick enough!";
-                yield return new WaitForSecondsRealtime(2.9f);
+                yield return new WaitForSeconds(2.9f);
             }
             label = "";
             SceneManager.LoadScene("Level2");
