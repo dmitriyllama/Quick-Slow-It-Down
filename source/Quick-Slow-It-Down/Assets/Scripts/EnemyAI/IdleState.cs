@@ -15,10 +15,10 @@ namespace EnemyAI
 
         public override void FixedUpdate()
         {
-            if (!enemy.alive) return;
+            if (!enemy.alive || !enemy.active) return;
             
             var position = enemy.transform.position;
-            var ray = new Ray(position, enemy.playerTransform.position - position);
+            var ray = new Ray(position, enemy.player.transform.position - position);
             if (Physics.Raycast(ray, out var hit))
             {
                 GameObject hitObject = hit.transform.gameObject;

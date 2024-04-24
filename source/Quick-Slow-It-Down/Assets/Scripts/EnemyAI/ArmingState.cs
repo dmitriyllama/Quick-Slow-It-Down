@@ -17,7 +17,13 @@ namespace EnemyAI
 
         public override void FixedUpdate()
         {
-            if (!enemy.alive) return;
+            if (!enemy.alive || !enemy.active) return;
+            
+            if (!enemy.player.alive)
+            {
+                // Killed the player!
+                enemy.ChangeState(EnemyAI.State.Idle);
+            } 
             if (enemy.rotating)
             {
                 enemy.Rotate();
@@ -28,7 +34,7 @@ namespace EnemyAI
                 var position = enemy.transform.position;
                 if ((gunTransform.position - position).sqrMagnitude > 9)
                 {
-                    enemy.MoveToward(gunTransform);
+                    enemy.MoveForward();
                 }
                 else
                 {
