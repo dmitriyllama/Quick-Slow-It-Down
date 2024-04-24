@@ -12,7 +12,7 @@ namespace EnemyAI
         public bool alive { get; private set; }
         
         private Transform visor;
-        public Transform playerTransform { get; private set; }
+        public PlayerTarget player { get; private set; }
         [SerializeField] public Gun assignedGun;
 
         public enum State
@@ -69,7 +69,7 @@ namespace EnemyAI
         void Start()
         {
             visor = transform.GetChild(0);
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTarget>();
             levelController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
             
             deathEvent = new UnityEvent();
@@ -84,7 +84,7 @@ namespace EnemyAI
             }
         }
 
-        public void MoveToward(Transform targetTransform)
+        public void MoveForward()
         {
             // TODO Pathfinding
             // I assume the enemy will never have to avoid obstacles
@@ -106,11 +106,16 @@ namespace EnemyAI
         {
             float savedRotationTarget = rotationTarget;
             rotationTarget -= deltaRotationTarget * Time.fixedDeltaTime;
-            if (Math.Abs(Mathf.Sign(savedRotationTarget) - Mathf.Sign(rotationTarget)) > 0.2)
+            Debug.Log(savedRotationTarget + "\t" + rotationTarget);
+            if (Math.Abs(Mathf.Sign(savedRotationTarget) + Mathf.Sign(rotationTarget)) < 0.1)
             {
                 rotating = false;
+                transform.Rotate(0, savedRotationTarget, 0);
             }
-            transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
+            else
+            {
+                transform.Rotate(0, deltaRotationTarget * Time.fixedDeltaTime, 0);
+            }
         }
 
         public void PickupGun()

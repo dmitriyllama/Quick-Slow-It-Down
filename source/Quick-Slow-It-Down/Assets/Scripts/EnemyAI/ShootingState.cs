@@ -8,12 +8,26 @@
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
+            enemy.SetRotationTarget(enemy.player.transform);
         }
 
         public override void FixedUpdate()
         {
-            throw new System.NotImplementedException();
+            if (!enemy.alive || !enemy.active) return;
+            
+            if (!enemy.player.alive)
+            {
+                // Killed the player!
+                enemy.ChangeState(EnemyAI.State.Idle);
+            }
+            if (enemy.rotating)
+            {
+                enemy.Rotate();
+            }
+            else
+            {
+                enemy.Shoot();
+            }
         }
 
         public override void Exit()
