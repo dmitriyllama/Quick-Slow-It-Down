@@ -10,8 +10,10 @@ public class Gun : ItemMainHand
     
     public void Shoot(Ray ray)
     {
-        if (!bulletSpawnPoint) bulletSpawnPoint = transform.GetChild(0);
+        if (!inHand) return;
         if (Time.timeSinceLevelLoad < lastShootTime + shootDeltaTime) return; // Too early to shoot
+        
+        if (!bulletSpawnPoint) bulletSpawnPoint = transform.GetChild(0);
         
         Vector3 direction;
         if (Physics.Raycast(ray, out var hit))
