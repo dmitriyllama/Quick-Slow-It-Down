@@ -1,4 +1,6 @@
-﻿namespace EnemyAI
+﻿using UnityEngine;
+
+namespace EnemyAI
 {
     public class ShootingState : BaseState
     {
@@ -13,7 +15,7 @@
 
         public override void FixedUpdate()
         {
-            if (!enemy.alive || !enemy.active) return;
+            if (!enemy.alive) return;
             
             if (!enemy.player.alive)
             {
@@ -26,13 +28,24 @@
             }
             else
             {
+                var position = enemy.transform.position;
+                var ray = new Ray(position, enemy.player.transform.position - position);
+                if (Physics.Raycast(ray, out var hit))
+                {
+                    GameObject hitObject = hit.transform.gameObject;
+                    if (!hitObject.CompareTag("Player"))
+                    {
+                        // Lost player!
+                        enemy.ChangeState(EnemyAI.State.Confused);
+                    }
+                }
+                enemy.Aim(enemy.player.transform);
                 enemy.Shoot();
             }
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

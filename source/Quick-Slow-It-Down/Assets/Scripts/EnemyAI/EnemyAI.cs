@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SceneScripts;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace EnemyAI
 {
@@ -52,6 +53,21 @@ namespace EnemyAI
             }
         }
         
+        public void ForceChangeState(State newState)
+        {
+            if (!alive) return;
+            if (stateDictionary.ContainsKey(state))
+            {
+                stateDictionary[state].Exit();
+            }
+            
+            state = newState;
+            if (stateDictionary.ContainsKey(newState))
+            {
+                stateDictionary[newState].Enter();
+            }
+        }
+        
 
         void Awake()
         {
@@ -60,9 +76,8 @@ namespace EnemyAI
             {
                 { State.Idle, new IdleState(this) },
                 { State.Arming, new ArmingState(this) },
-                { State.Shooting, new ShootingState(this) }
-                // , { State.Searching, new SearchingState(this) },
-                // { State.Confused, new ConfusedState(this) }
+                { State.Shooting, new ShootingState(this) },
+                { State.Confused, new ConfusedState(this) }
             };
         }
 
@@ -106,7 +121,6 @@ namespace EnemyAI
         {
             float savedRotationTarget = rotationTarget;
             rotationTarget -= deltaRotationTarget * Time.fixedDeltaTime;
-            Debug.Log(savedRotationTarget + "\t" + rotationTarget);
             if (Math.Abs(Mathf.Sign(savedRotationTarget) + Mathf.Sign(rotationTarget)) < 0.1)
             {
                 rotating = false;
@@ -124,9 +138,21 @@ namespace EnemyAI
             assignedGun.Pickup(hand);
         }
 
+        public void Aim(Transform targetTransform)
+        {
+            transform.LookAt(targetTransform);
+        }
+        
         public void Shoot()
         {
             assignedGun.Shoot(new Ray(visor.position, transform.forward));
+        }
+
+        public void LookRandomly()
+        {
+            rotating = true;
+            rotationTarget = Random.Range(-70, 70);
+            deltaRotationTarget = Mathf.Sign(rotationTarget) * rotationSpeed;
         }
 
         public void ReactToHit()
