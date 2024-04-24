@@ -1,3 +1,4 @@
+using SceneScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,14 +14,14 @@ public class ItemPicker : MonoBehaviour {
     private ItemMainHand mainHandItem;
     private ItemOffHand offHandItem;
     
-    private Tutorial scene;
+    private Level scene;
     private UnityEvent pickupEvent;
     
     private void Start() {
         cam = Camera.main;
         character = GetComponent<CharacterController>();    
         
-        scene = GameObject.FindGameObjectWithTag("GameController").GetComponent<Tutorial>();
+        scene = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
         pickupEvent = new UnityEvent();
         pickupEvent.AddListener(scene.ReactToPlayerAction);
     }
@@ -32,14 +33,21 @@ public class ItemPicker : MonoBehaviour {
                 var mainHandItem = hit.transform.GetComponent<ItemMainHand>();
                 if (mainHandItem)
                 {
-                    if (this.mainHandItem) ThrowMainHand();
-                    PickupMainHand(mainHandItem);
-                    pickupEvent.Invoke();
+                    if (!mainHandItem.inHand)
+                    {
+                        if (this.mainHandItem) ThrowMainHand();
+                        this.mainHandItem = mainHandItem;
+                        mainHandItem.Pickup(mainHandPos);
+                        pickupEvent.Invoke();
+                    }
                 }
                 var offHandItem = hit.transform.GetComponent<ItemOffHand>();
                 if (offHandItem)
                 {
-                    PickupOffHand(offHandItem);
+                    // Doesn't require item.inHand check: only player can hold in off hand
+                    if (this.offHandItem) ThrowOffHand();
+                    this.offHandItem = offHandItem;
+                    offHandItem.Pickup(offHandPos);
                     pickupEvent.Invoke();
                 }
             }
@@ -49,17 +57,14 @@ public class ItemPicker : MonoBehaviour {
             if (mainHandItem) ThrowMainHand();
             else if (offHandItem) ThrowOffHand();
         }
-    }
-
-    private void PickupMainHand(ItemMainHand item) {
-        mainHandItem = item;
-        item.inHand = true;
         
-        item.rb.isKinematic = true;
-        
-        item.transform.SetParent(mainHandPos);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localEulerAngles = Vector3.zero;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!mainHandItem) return;
+            if (mainHandItem is not Gun gun) return;
+            var ray = cam.ViewportPointToRay(Vector3.one * 0.5f);
+            gun.Shoot(ray);
+        }
     }
 
     private void ThrowMainHand()
@@ -67,23 +72,7 @@ public class ItemPicker : MonoBehaviour {
         ItemMainHand item = mainHandItem;
         mainHandItem = null;
         
-        item.inHand = false;
-        item.transform.SetParent(null);
-        item.rb.isKinematic = false;
-        item.rb.AddForce(
-            (item.transform.forward + transform.up * throwAngleMultiplier) * throwForce + character.velocity,
-            ForceMode.VelocityChange);
-    }
-    
-    private void PickupOffHand(ItemOffHand item) {
-        offHandItem = item;
-        item.inHand = true;
-
-        item.rb.isKinematic = true;
-
-        item.transform.SetParent(offHandPos);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localEulerAngles = Vector3.zero;
+        item.Throw(character.velocity, throwForce, throwAngleMultiplier);
     }
 
     private void ThrowOffHand()
@@ -91,11 +80,6 @@ public class ItemPicker : MonoBehaviour {
         ItemOffHand item = offHandItem;
         offHandItem = null;
         
-        item.inHand = false;
-        item.transform.SetParent(null);
-        item.rb.isKinematic = false;
-        item.rb.AddForce(
-            (item.transform.forward + transform.up * throwAngleMultiplier) * throwForce + character.velocity,
-            ForceMode.VelocityChange);
+        item.Throw(character.velocity, throwForce, throwAngleMultiplier);
     }
 }

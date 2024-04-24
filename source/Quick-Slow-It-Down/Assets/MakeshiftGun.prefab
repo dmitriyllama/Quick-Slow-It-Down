@@ -111,9 +111,6 @@ PrefabInstance:
       addedObject: {fileID: 730154484117354771}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2862354525956137886}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4530057935738730713}
   m_SourcePrefab: {fileID: 100100000, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
 --- !u!1 &7267936841352605598 stripped
@@ -148,20 +145,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2862354525956137886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267936841352605598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b36c7058503884fb1a971ae28f6f88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  inHand: 0
 --- !u!114 &4530057935738730713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,9 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0c46fcc25c07c4bb2cdce6e6ccaa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  inHand: 0
   bulletSpawnPoint: {fileID: 3145281986824343376}
   bulletPrefab: {fileID: 324190070946603141, guid: d7d7c4fde1032304fbe42f2a31d7994c, type: 3}
   bulletSpeed: 50
+  shootDeltaTime: 0.2
 --- !u!4 &8040955721933370660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a0f76bdb3c21f8741b63174247760526, type: 3}

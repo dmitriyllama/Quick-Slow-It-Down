@@ -1,3 +1,4 @@
+using SceneScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +10,7 @@ public class FPSInput : MonoBehaviour
     [SerializeField] float gravity = -9.8f;
     private CharacterController charController;
     
-    private Tutorial scene;
+    private Level level;
     private UnityEvent moveEvent;
 
     void Start()
@@ -19,15 +20,13 @@ public class FPSInput : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        scene = GameObject.FindGameObjectWithTag("GameController").GetComponent<Tutorial>();
+        level = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
         moveEvent = new UnityEvent();
-        moveEvent.AddListener(scene.ReactToPlayerAction);
+        moveEvent.AddListener(level.ReactToPlayerAction);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
         float deltaX = Input.GetAxis("Horizontal") * speed;
         float deltaZ = Input.GetAxis("Vertical") * speed;
         Vector3 movement = new Vector3(deltaX, 0, deltaZ);
