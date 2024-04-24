@@ -20,7 +20,7 @@ namespace EnemyAI
             if (!enemy.player.alive)
             {
                 // Killed the player!
-                enemy.ChangeState(EnemyAI.State.Idle);
+                enemy.ForceChangeState(EnemyAI.State.Idle);
             }
             if (enemy.rotating)
             {
