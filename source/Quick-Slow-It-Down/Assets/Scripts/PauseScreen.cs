@@ -1,20 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using Controls;
 using UnityEngine;
 
 public class PauseScreen : MonoBehaviour
 {
+    private GameObject player;
+    private GameObject artifact;
+    
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        player = GameObject.FindGameObjectWithTag("Player");
+        artifact = GameObject.FindGameObjectWithTag("Artifact");
+    }
+
     public void Open()
     {
-        gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
+        player.GetComponent<MouseLookX>().enabled = false;
+        player.GetComponentInChildren<MouseLookY>().enabled = false;
+        player.GetComponent<FPSInput>().enabled = false;
+        artifact.GetComponent<TimeArtifact>().enabled = false;
+        Time.timeScale = 0f;
     }
     public void Close()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         player.GetComponent<MouseLookX>().enabled = true;
         player.GetComponentInChildren<MouseLookY>().enabled = true;
         player.GetComponent<FPSInput>().enabled = true;
-        Time.timeScale = 1.0f;
-        gameObject.SetActive(false);
+        artifact.GetComponent<TimeArtifact>().enabled = true;
     }
 }
