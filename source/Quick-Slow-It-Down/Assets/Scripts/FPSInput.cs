@@ -17,8 +17,8 @@ public class FPSInput : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
         
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
 
         level = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
         moveEvent = new UnityEvent();
