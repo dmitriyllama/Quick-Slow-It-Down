@@ -10,12 +10,11 @@ namespace EnemyAI
 
         public override void Enter()
         {
-            // Does nothing
         }
 
         public override void FixedUpdate()
         {
-            if (!enemy.alive || !enemy.active) return;
+            if (!enemy.alive) return;
             
             var position = enemy.transform.position;
             var ray = new Ray(position, enemy.player.transform.position - position);
@@ -32,7 +31,6 @@ namespace EnemyAI
 
         public override void Exit()
         {
-            // Does nothing
         }
     }
 }
