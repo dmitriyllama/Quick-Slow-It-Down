@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 7090041530024376324}
   - component: {fileID: 6237508504895363821}
   - component: {fileID: 4070193181430430385}
-  - component: {fileID: 7818783857759459953}
   m_Layer: 0
   m_Name: Artifact
-  m_TagString: Untagged
+  m_TagString: Artifact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,20 +150,6 @@ MonoBehaviour:
   idleColor: {r: 0.16954434, g: 0.23659746, b: 0.2830189, a: 1}
   activeColor: {r: 0.8113208, g: 0, b: 0.08660154, a: 1}
   slowMultiplier: 0.05
---- !u!114 &7818783857759459953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134935316489391188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 570592d1301441a787d18baf38506785, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  inHand: 0
 --- !u!1 &7508365146477660372
 GameObject:
   m_ObjectHideFlags: 0
