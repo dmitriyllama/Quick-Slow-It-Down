@@ -3,30 +3,15 @@ using UnityEngine;
 
 public class PauseScreen : MonoBehaviour
 {
-    private GameObject player;
-    private GameObject artifact;
-    
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        player = GameObject.FindGameObjectWithTag("Player");
-        artifact = GameObject.FindGameObjectWithTag("Artifact");
-    }
-
     public void Open()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        
-        player.GetComponent<MouseLookX>().enabled = false;
-        player.GetComponentInChildren<MouseLookY>().enabled = false;
-        player.GetComponent<FPSInput>().enabled = false;
-        artifact.GetComponent<TimeArtifact>().enabled = false;
-        Time.timeScale = 0f;
+        gameObject.SetActive(true);
     }
     public void Close()
     {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        var artifact = GameObject.FindGameObjectWithTag("Artifact");
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
@@ -34,5 +19,11 @@ public class PauseScreen : MonoBehaviour
         player.GetComponentInChildren<MouseLookY>().enabled = true;
         player.GetComponent<FPSInput>().enabled = true;
         artifact.GetComponent<TimeArtifact>().enabled = true;
+        
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
+        gameObject.SetActive(false);
     }
 }
