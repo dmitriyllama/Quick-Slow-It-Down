@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d121af5c1647918f668a99b382ad13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inAction: 0
 --- !u!1001 &555277561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1409,7 +1410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9071531568824629110, guid: 7da978cada60f52438d240727cb88a5f, type: 3}
       propertyPath: active
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9071531568824629110, guid: 7da978cada60f52438d240727cb88a5f, type: 3}
       propertyPath: assignedGun
