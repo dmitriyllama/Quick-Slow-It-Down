@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class Gun : ItemMainHand
 {
-    [SerializeField] private Transform bulletSpawnPoint;
+    private Transform bulletSpawnPoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float shootDeltaTime;
     private float lastShootTime = 0;
-
+    
     public void Shoot(Ray ray)
     {
+        if (!bulletSpawnPoint) bulletSpawnPoint = transform.GetChild(0);
         if (Time.timeSinceLevelLoad < lastShootTime + shootDeltaTime) return; // Too early to shoot
         
         Vector3 direction;
