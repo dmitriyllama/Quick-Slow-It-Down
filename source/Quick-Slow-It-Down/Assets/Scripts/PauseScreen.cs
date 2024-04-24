@@ -14,7 +14,11 @@ public class PauseScreen : MonoBehaviour
         player.GetComponent<MouseLookX>().enabled = true;
         player.GetComponentInChildren<MouseLookY>().enabled = true;
         player.GetComponent<FPSInput>().enabled = true;
+        
         Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         gameObject.SetActive(false);
     }
 }

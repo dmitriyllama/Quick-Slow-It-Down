@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour {
         player.GetComponentInChildren<MouseLookY>().enabled = false;
         player.GetComponent<FPSInput>().enabled = false;
         Time.timeScale = 0;
+        
         pauseScreen.Open();
     }
 }
