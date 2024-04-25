@@ -30,6 +30,12 @@ public class PauseScreen : MonoBehaviour
 
     public void OpenMainMenu()
     {
+        gameObject.SetActive(false);
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
