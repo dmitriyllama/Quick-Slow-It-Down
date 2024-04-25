@@ -12,6 +12,8 @@ namespace Controls
         private ItemOffHand item;
         private new Renderer renderer;
         private Light artifactLight;
+
+        private AudioSource _audioSource;
     
         private bool active;
 
@@ -20,6 +22,7 @@ namespace Controls
             item = GetComponent<ItemOffHand>();
             renderer = GetComponent<Renderer>();
             artifactLight = GetComponentInChildren<Light>();
+            _audioSource = GetComponent<AudioSource>();
         
             SetArtifactColor(idleColor);
         }
@@ -35,6 +38,7 @@ namespace Controls
                     Time.timeScale = slowMultiplier;
                     Time.fixedDeltaTime = 0.02F * Time.timeScale;
                     SetArtifactColor(activeColor);
+                    _audioSource.Play();
                 }
                 else
                 {

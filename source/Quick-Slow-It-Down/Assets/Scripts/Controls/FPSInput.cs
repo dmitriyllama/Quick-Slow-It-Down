@@ -11,7 +11,10 @@ namespace Controls
         [SerializeField] float speed = 6.0f;
         [SerializeField] float gravity = -9.8f;
         private CharacterController charController;
-    
+
+        [SerializeField] private AudioClip walkSound;
+        private AudioSource _audioSource;
+        
         private Level level;
         private UnityEvent moveEvent;
 
@@ -22,6 +25,8 @@ namespace Controls
             level = GameObject.FindGameObjectWithTag("GameController").GetComponent<Level>();
             moveEvent = new UnityEvent();
             moveEvent.AddListener(level.ReactToPlayerAction);
+
+            _audioSource = GetComponent<AudioSource>();
         }
 
         void Update()
@@ -33,6 +38,7 @@ namespace Controls
             if (!movement.Equals(Vector3.zero))
             {
                 moveEvent.Invoke();
+                if (!_audioSource.isPlaying) _audioSource.PlayOneShot(walkSound);
             }
         
             movement = Vector3.ClampMagnitude(movement, speed);

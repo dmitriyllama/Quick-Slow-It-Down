@@ -32,6 +32,7 @@ public class Gun : ItemMainHand
         var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         bullet.transform.Rotate(bulletSpawnPoint.forward);
         bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
+        GetComponent<AudioSource>().Play();
         lastShootTime = Time.timeSinceLevelLoad;
         animations.SetInteger(Shooting, 1);
         animations.SetInteger(Shooting, -1);
