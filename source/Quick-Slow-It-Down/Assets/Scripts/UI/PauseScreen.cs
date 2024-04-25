@@ -1,5 +1,6 @@
 using Controls;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -25,5 +26,10 @@ public class PauseScreen : MonoBehaviour
         Cursor.visible = false;
         
         gameObject.SetActive(false);
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
