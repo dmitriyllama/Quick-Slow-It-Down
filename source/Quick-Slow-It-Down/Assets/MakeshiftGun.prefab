@@ -112,6 +112,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4530057935738730713}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 869574136624705040}
   m_SourcePrefab: {fileID: 100100000, guid: a0f76bdb3c21f8741b63174247760526, type: 3}
 --- !u!1 &7267936841352605598 stripped
 GameObject:
@@ -157,12 +160,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0c46fcc25c07c4bb2cdce6e6ccaa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  inHand: 0
-  bulletSpawnPoint: {fileID: 3145281986824343376}
   bulletPrefab: {fileID: 324190070946603141, guid: d7d7c4fde1032304fbe42f2a31d7994c, type: 3}
   bulletSpeed: 50
   shootDeltaTime: 0.2
+--- !u!95 &869574136624705040
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7267936841352605598}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9de5533cde8af246a90abc4fc845d58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &8040955721933370660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a0f76bdb3c21f8741b63174247760526, type: 3}

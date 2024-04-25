@@ -27,7 +27,7 @@ namespace EnemyAI
                 if (hitObject.CompareTag("Player"))
                 {
                     // Saw player!
-                    enemy.ChangeState(EnemyAI.State.Arming);
+                    enemy.ChangeState(EnemyAI.State.Shooting);
                 }
             }
         }

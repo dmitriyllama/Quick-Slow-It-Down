@@ -239,5 +239,5 @@ MonoBehaviour:
   assignedGun: {fileID: 0}
   active: 0
   speed: 4
-  rotationSpeed: 300
+  rotationSpeed: 200
   rotating: 0

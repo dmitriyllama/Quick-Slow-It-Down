@@ -72,7 +72,6 @@ namespace SceneScripts
         private IEnumerator ActivateEnemy()
         {
             inAction = true;
-            var enemyTransform = enemy.transform;
             yield return new WaitForSeconds(0.2f);
         
             enemy.PickupGun();
