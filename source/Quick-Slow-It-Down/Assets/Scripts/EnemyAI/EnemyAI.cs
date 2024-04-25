@@ -28,8 +28,8 @@ namespace EnemyAI
         private Dictionary<State, BaseState> stateDictionary;
         [SerializeField] public bool active;
         
-        [SerializeField] private float speed = 4.0f;
-        [SerializeField] private float rotationSpeed = 300.0f;
+        [SerializeField] private float speed;
+        [SerializeField] private float rotationSpeed;
         public bool rotating;
         private float rotationTarget;
         private float deltaRotationTarget;
@@ -164,6 +164,10 @@ namespace EnemyAI
         {
             if (alive)
             {
+                if (assignedGun.inHand)
+                {
+                    assignedGun.Throw(Vector3.zero, 5, 0.2f);
+                }
                 alive = false;
                 transform.Rotate(-75, 0, 0);
                 yield return new WaitForSeconds(1.5f);
