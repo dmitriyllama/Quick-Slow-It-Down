@@ -12,6 +12,7 @@ namespace SceneScripts
 
         private Coroutine activeCoroutine;
         private int tutorialProgress;
+        private bool playerDead;
         private bool readThroughEnoughTutorial;
 
         [SerializeField] private EnemyAI.EnemyAI enemy;
@@ -28,12 +29,14 @@ namespace SceneScripts
 
         public override void ReactToPlayerDeath()
         {
+            playerDead = true;
             StopCoroutine(activeCoroutine);
             activeCoroutine = StartCoroutine(ResetTutorial());
         }
     
         public override void ReactToEnemyDeath()
         {
+            if (playerDead) return;
             if (tutorialProgress != 1) return;
             tutorialProgress++;
         
