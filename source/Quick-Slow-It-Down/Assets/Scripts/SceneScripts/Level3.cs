@@ -48,9 +48,15 @@ namespace SceneScripts
         
         private IEnumerator StartLevel()
         {
-            yield return new WaitForSeconds(4.2f);
             guiStyle.fontSize = 24;
-            label = "You need to be quick";
+            yield return new WaitForSeconds(0.4f);
+            label = "Take your time to look around";
+            yield return new WaitForSeconds(1.8f);
+            label = "Once you move, these guys\naren't hesitating to keep you out";
+            yield return new WaitForSeconds(3.2f);
+            label = "But these artifacts are something they can't sense";
+            yield return new WaitForSeconds(3.4f);
+            label = "";
         }
         
         private IEnumerator ActivateEnemy()
@@ -60,12 +66,10 @@ namespace SceneScripts
             {
                 enemy.active = true;
             }
-            guiStyle.fontSize = 24;
-            yield return new WaitForSeconds(1.6f);
-            label = "The guards don't hesitate to keep this place secure";
-            yield return new WaitForSeconds(3.2f);
-            label = "Why don't they see the artifact in your hand?";
-            yield return new WaitForSeconds(3.4f);
+
+            yield return new WaitForSeconds(0.4f);
+            label = "More targets are up!";
+            yield return new WaitForSeconds(1.7f);
             label = "";
         }
         

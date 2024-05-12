@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4070193181430430385}
   - component: {fileID: 7393298819363709016}
   - component: {fileID: -3219417235676532173}
-  - component: {fileID: 3198643819422983702}
+  - component: {fileID: 7192998935638892407}
   m_Layer: 0
   m_Name: Artifact
   m_TagString: Artifact
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6009512d5eed9647b39f786e514bb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleColor: {r: 0.16954434, g: 0.23659746, b: 0.2830189, a: 1}
-  activeColor: {r: 0.8113208, g: 0, b: 0.08660154, a: 1}
+  idleColor: {r: 0.16954434, g: 0.23659746, b: 0.2830189, a: 0.78431374}
+  activeColor: {r: 0.8113208, g: 0, b: 0.08660154, a: 0.6666667}
   slowMultiplier: 0.05
 --- !u!114 &7393298819363709016
 MonoBehaviour:
@@ -261,7 +261,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!96 &3198643819422983702
+--- !u!96 &7192998935638892407
 TrailRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -281,8 +281,7 @@ TrailRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 4cfc2ce463a6f914fb33645b6f031b8d, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -313,7 +312,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2857098
+        value: 0.27100796
         inSlope: -0.13664249
         outSlope: -0.13664249
         tangentMode: 0
