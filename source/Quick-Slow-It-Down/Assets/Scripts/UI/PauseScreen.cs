@@ -21,6 +21,7 @@ namespace UI
             player.GetComponent<MouseLookX>().enabled = true;
             player.GetComponentInChildren<MouseLookY>().enabled = true;
             player.GetComponent<FPSInput>().enabled = true;
+            player.GetComponent<ItemPicker>().enabled = true;
             artifact.GetComponent<TimeArtifact>().enabled = true;
         
             Time.timeScale = 1.0f;
