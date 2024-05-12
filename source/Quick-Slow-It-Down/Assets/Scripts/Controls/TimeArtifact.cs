@@ -12,6 +12,7 @@ namespace Controls
         private ItemOffHand item;
         private new Renderer renderer;
         private Light artifactLight;
+        private TrailRenderer artifactTrail;
 
         private AudioSource _audioSource;
     
@@ -22,6 +23,7 @@ namespace Controls
             item = GetComponent<ItemOffHand>();
             renderer = GetComponent<Renderer>();
             artifactLight = GetComponentInChildren<Light>();
+            artifactTrail = GetComponent<TrailRenderer>();
             _audioSource = GetComponent<AudioSource>();
         
             SetArtifactColor(idleColor);
@@ -38,6 +40,7 @@ namespace Controls
                     Time.timeScale = slowMultiplier;
                     Time.fixedDeltaTime = 0.02F * Time.timeScale;
                     SetArtifactColor(activeColor);
+                    artifactTrail.emitting = true;
                     _audioSource.Play();
                 }
                 else
@@ -45,6 +48,7 @@ namespace Controls
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = 0.02F * Time.timeScale;
                     SetArtifactColor(idleColor);
+                    artifactTrail.emitting = false;
                 }
             }
             else
@@ -53,6 +57,7 @@ namespace Controls
                 Time.timeScale = 1f;
                 Time.fixedDeltaTime = 0.02F * Time.timeScale;
                 SetArtifactColor(idleColor);
+                artifactTrail.emitting = false;
             }
         }
 
