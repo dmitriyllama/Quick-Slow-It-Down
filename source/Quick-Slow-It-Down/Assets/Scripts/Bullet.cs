@@ -37,8 +37,8 @@ public class Bullet : MonoBehaviour
     void Hit(Transform other)
     {
         StopCoroutine(hitReg);
-        var enemy = other.GetComponent<EnemyAI.EnemyAI>();
-        var player = other.GetComponent<PlayerTarget>();
+        var enemy = other.GetComponentInParent<EnemyAI.EnemyAI>();
+        var player = other.GetComponentInParent<PlayerTarget>();
         if (enemy)
         {
             enemy.ReactToHit();
