@@ -324,11 +324,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 501da2ef462b3654ba23422683f977a4, type: 3}
   m_PrefabInstance: {fileID: 2086919960}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &508307093 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8040955721933370660, guid: 40d226721125c50499fd540b17af12c5, type: 3}
-  m_PrefabInstance: {fileID: 1205039926}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &555188759
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   gravity: -9.8
+  walkSound: {fileID: 0}
 --- !u!143 &747321345
 CharacterController:
   m_ObjectHideFlags: 0
@@ -742,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e921be7c63cb57041b66766dcf4836d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inAction: 0
   guiStyle:
     m_Name: ScreenTextGUI
     m_Normal:
@@ -809,7 +806,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  opposingGun: {fileID: 508307093}
   enemy: {fileID: 1587115984}
 --- !u!1 &868628007
 GameObject:
@@ -1175,8 +1171,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back to game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 428e33685c3b14043892269ffad0ce93, type: 2}
+  m_sharedMaterial: {fileID: -1258995290751003934, guid: 428e33685c3b14043892269ffad0ce93, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2114,6 +2110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6efd75129de7a94f8b661d5abc4695c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignedGun: {fileID: 0}
+  active: 0
+  speed: 0
+  rotationSpeed: 0
+  rotating: 0
 --- !u!43 &1625732955
 Mesh:
   m_ObjectHideFlags: 0
@@ -2472,8 +2473,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 428e33685c3b14043892269ffad0ce93, type: 2}
+  m_sharedMaterial: {fileID: -1258995290751003934, guid: 428e33685c3b14043892269ffad0ce93, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
