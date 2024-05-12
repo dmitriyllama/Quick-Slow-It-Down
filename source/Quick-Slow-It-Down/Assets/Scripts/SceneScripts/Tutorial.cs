@@ -100,9 +100,9 @@ namespace SceneScripts
             {
                 guiStyle.fontSize = 24;
                 label = "Woah";
-                yield return new WaitForSeconds(2.2f);
+                yield return new WaitForSeconds(1.6f);
                 label = "Quick enough!";
-                yield return new WaitForSeconds(2.9f);
+                yield return new WaitForSeconds(1.9f);
             }
             label = "";
             SceneManager.LoadScene("Level2");
