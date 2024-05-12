@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using Controls;
 using UnityEngine;
 
-public class UIController : MonoBehaviour {
-    [SerializeField] PauseScreen pauseScreen;
+namespace UI
+{
+    public class UIController : MonoBehaviour {
+        [SerializeField] PauseScreen pauseScreen;
     
-    void Start() {
-        pauseScreen.Close();
-        DontDestroyOnLoad(this);
-    }
+        void Start() {
+            pauseScreen.Close();
+            DontDestroyOnLoad(this);
+        }
     
-    public void OnGamePause()
-    {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        var artifact = GameObject.FindGameObjectWithTag("Artifact");
+        public void OnGamePause()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            var artifact = GameObject.FindGameObjectWithTag("Artifact");
         
-        player.GetComponent<MouseLookX>().enabled = false;
-        player.GetComponentInChildren<MouseLookY>().enabled = false;
-        player.GetComponent<FPSInput>().enabled = false;
-        artifact.GetComponent<TimeArtifact>().enabled = false;
+            player.GetComponent<MouseLookX>().enabled = false;
+            player.GetComponentInChildren<MouseLookY>().enabled = false;
+            player.GetComponent<FPSInput>().enabled = false;
+            artifact.GetComponent<TimeArtifact>().enabled = false;
         
-        Time.timeScale = 0;
+            Time.timeScale = 0;
         
-        pauseScreen.Open();
+            pauseScreen.Open();
+        }
     }
 }

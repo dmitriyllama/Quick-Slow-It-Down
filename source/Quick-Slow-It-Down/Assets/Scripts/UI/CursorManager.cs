@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CursorManager : MonoBehaviour
+namespace UI
 {
-    void Start()
+    public class CursorManager : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        void Start()
         {
-            var canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIController>();
-            canvas.OnGamePause();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                var canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIController>();
+                canvas.OnGamePause();
             
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             
+            }
         }
     }
 }
