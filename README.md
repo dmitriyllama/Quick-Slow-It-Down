@@ -1,6 +1,6 @@
 # Quick! Slow It Down!
 
-This is the source code for "Quick! Slow It Down!", a Unity game project for Intro to Game Development course at Innopolis University, Soring 2024.
+This is the source code for "Quick! Slow It Down!", a Unity game project for Intro to Game Development course at Innopolis University, Spring 2024.
 
 ### Build
 
